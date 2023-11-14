@@ -1,0 +1,476 @@
+@font-face {
+    font-family: 'Nunito Sans';
+    src: url("./NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf") format("truetype");
+}
+
+:root {
+    /* Light Mode */
+    --Elements-Color: hsl(0, 0%, 100%);
+    --Background-Color: hsl(0, 0%, 98%);
+    --Text-Color: hsl(200, 15%, 8%);
+
+    /* Typography */
+    --Homepage-Items: 14px;
+    --Detailpage-Items: 16px;
+
+    --Shadow-Color: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    /* Dark Mode */
+    --Elements-Color: hsl(209, 23%, 22%);
+    --Background-Color: hsl(207, 26%, 17%);
+    --Text-Color: hsl(0, 0%, 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: var(--Homepage-Items);
+    color: var(--Text-Color);
+    -webkit-user-drag: none;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+}
+
+.wrapper {
+    min-height: 100vh;
+    width: 100%;
+    background-color: var(--Background-Color);
+    padding: 3rem 0;
+}
+
+header {
+    width: 100%;
+    height: 4.5vw;
+    min-height: 4rem;
+    background-color: var(--Elements-Color);
+    box-shadow: var(--Shadow-Color);
+    padding: 0 2.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+header h2 {
+    font-weight: 800;
+    font-size: 1.8rem;
+    letter-spacing: .07rem;
+}
+
+.theme-section {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.theme-section span {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.theme-section:hover span {
+    transform: translateY(-100%);
+}
+
+.theme-section i {
+    margin-right: .7rem;
+}
+
+section.search-by {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3rem auto;
+}
+
+.search-bar {
+    background-color: var(--Elements-Color);
+    height: 3.3rem;
+    width: 30rem;
+    padding: 0 1rem 0 1.5rem;
+    border-radius: 5px;
+    box-shadow: var(--Shadow-Color);
+}
+
+#searchBar {
+    height: 100%;
+    width: calc(100% - 2rem);
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-weight: 600;
+    background-color: var(--Elements-Color);
+}
+
+#searchBar::placeholder {
+    height: 100%;
+    background-color: var(--Elements-Color);
+    color: var(--Text-Color);
+    opacity: .8;
+}
+
+#searchBar:active,
+#searchBar:focus {
+    cursor: text;
+}
+
+.search-bar i {
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: .7;
+    transition: .3s;
+}
+
+.search-bar i:hover {
+    scale: 1.1;
+}
+
+.filter-by {
+    height: 3rem;
+    width: 11.5rem;
+    border-radius: 5px;
+    background-color: var(--Elements-Color);
+    box-shadow: var(--Shadow-Color);
+    position: relative;
+}
+
+.filter-by:hover .title i {
+    transform: rotate(-180deg);
+}
+
+.filter-by:hover .regions {
+    top: 100%;
+}
+
+.title {
+    height: 100%;
+    width: 100%;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.title i {
+    transition: .3s;
+}
+
+.regions {
+    position: absolute;
+    top: -100vh;
+    margin-top: .3rem;
+    width: 100%;
+    height: fit-content;
+    border-radius: 5px;
+    background-color: var(--Elements-Color);
+    box-shadow: var(--Shadow-Color);
+    padding: .6rem 1rem;
+    transition: .5s;
+}
+
+.regions span {
+    display: block;
+    list-style: none;
+    font-weight: 700;
+    cursor: pointer;
+    padding: .4rem .5rem;
+    border-radius: 5px;
+    transition: .3s;
+}
+
+.regions span:hover {
+    background-color: var(--Background-Color);
+    scale: 1.1;
+}
+
+section.countries-list {
+    width: fit-content;
+    margin: 3.5rem auto 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 3.2rem;
+}
+
+.country {
+    height: fit-content;
+    width: 18vw;
+    min-width: 220px;
+    background-color: var(--Elements-Color);
+    box-shadow: var(--Shadow-Color);
+    border-radius: 5px;
+    padding-bottom: 1.5rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.country:hover {
+    scale: 1.08;
+}
+
+.flag {
+    width: 100%;
+    max-height: 40%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.flag img {
+    height: 100%;
+    width: 100%;
+}
+
+.name {
+    margin: .5rem 1rem;
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.details {
+    margin: .5rem 1rem;
+}
+
+.details>* {
+    font-weight: 700;
+}
+
+.details span {
+    font-weight: 400;
+}
+
+section.detail-page {
+    min-width: 100vw;
+    min-height: 100vh;
+    position: absolute;
+    top: -100vh;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--Background-Color);
+    box-shadow: var(--Shadow-Color);
+    padding: 6rem 4rem;
+    transition: .3s;
+    z-index: 1;
+}
+
+.back-btn,
+.top-btn {
+    width: fit-content;
+    padding: .5rem 1rem;
+    background-color: var(--Elements-Color);
+    box-shadow: var(--Shadow-Color);
+    border-radius: 5px;
+    font-weight: 700;
+    align-self: flex-start;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: .5rem .8rem;
+    display: none;
+}
+
+.back-btn:hover,
+.top-btn:hover {
+    scale: 1.1;
+    box-shadow: var(--Shadow-Color);
+}
+
+.main-details {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem;
+}
+
+.flag-img img {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: var(--Shadow-Color);
+}
+
+.detail {
+    width: 55%;
+}
+
+.detail * {
+    font-size: var(--Detailpage-Items);
+}
+
+.detail .head {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.detail .main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+    margin: 1rem 0 2rem;
+}
+
+.main div {
+    font-weight: 600;
+    margin-top: .5rem;
+    width: fit-content;
+}
+
+.main span {
+    font-weight: 300;
+    width: fit-content;
+}
+
+.foot {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.border-countries {
+    display: flex;
+    gap: .8rem;
+    flex-wrap: wrap;
+}
+
+.border-countries span {
+    font-weight: 400;
+    padding: .1rem 1rem;
+    border: 1px solid var(--Elements-Color);
+    box-shadow: var(--Shadow-Color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+@media (width<=1050px) {
+    .flag-img {
+        min-width: 400px;
+    }
+
+    .main-details {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .detail {
+        width: 100%;
+        min-width: fit-content;
+        margin: 0 auto;
+    }
+
+    .left,
+    .right {
+        min-width: fit-content;
+    }
+}
+
+@media (width<=1024px) {
+    section.countries-list {
+        grid-template-columns: repeat(3, auto);
+        gap: 2.5rem;
+    }
+
+    .country {
+        min-width: 220px;
+    }
+}
+
+@media (width<=768px) {
+    section.countries-list {
+        grid-template-columns: repeat(2, auto);
+        gap: 3rem;
+    }
+
+    .country {
+        min-width: 230px;
+    }
+
+    .search-bar {
+        width: 20rem;
+    }
+
+    .flag-img {
+        min-width: 250px;
+    }
+}
+
+@media (width<=600px) {
+    header {
+        padding: 0 2rem;
+    }
+
+    .search-by {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    section.countries-list {
+        grid-template-columns: repeat(1, auto);
+    }
+
+    .country {
+        min-width: 280px;
+    }
+
+    section.detail-page {
+        width: 90vw;
+        padding: 6rem 2rem;
+    }
+
+    .foot,
+    .detail .main {
+        flex-direction: column;
+    }
+
+    .border-countries {
+        justify-content: center;
+    }
+}
+
+@media (width<=425px) {
+    header {
+        padding: 0 1.2rem;
+    }
+
+    header h2 {
+        font-size: 1.2rem;
+    }
+
+    .theme-section i {
+        margin-right: .4rem;
+    }
+}
