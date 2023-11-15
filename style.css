@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Nunito Sans';
-    src: url("./NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf") format("truetype");
+    src: url("./NunitoSans-VariableFont.ttf") format("truetype");
 }
 
 :root {
@@ -88,7 +88,7 @@ header h2 {
     transition: .2s;
 }
 
-.theme-section:hover span {
+.theme-section:hover>span {
     transform: translateY(-100%);
 }
 
@@ -376,6 +376,10 @@ section.detail-page {
     transition: .3s;
 }
 
+.border-countries span:hover {
+    scale: 1.05;
+}
+
 @media (width<=1050px) {
     .flag-img {
         min-width: 400px;
@@ -451,6 +455,10 @@ section.detail-page {
         padding: 6rem 2rem;
     }
 
+    .detail .main {
+        gap: 0rem;
+    }
+
     .foot,
     .detail .main {
         flex-direction: column;
@@ -467,10 +475,23 @@ section.detail-page {
     }
 
     header h2 {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 
     .theme-section i {
         margin-right: .4rem;
     }
+
+    .theme-section .theme-text {
+        display: none;
+    }
+
+    .search-bar {
+        width: 18.5rem;
+    }
+
+    .country {
+        min-width: 250px;
+    }
+
 }

@@ -44,7 +44,7 @@ const toggleTheme = () => {
         rootElement.setAttribute('data-theme', (rootElement.getAttribute('data-theme') === 'dark') ? "light" : "dark");
 
         // Update theme text based on the current theme
-        updateThemeText(themeSection);
+        updateThemeText(themeSection, rootElement);
     });
 };
 
@@ -53,8 +53,8 @@ const updateThemeText = (themeSection, rootElement) => {
     const isDarkMode = rootElement.getAttribute('data-theme') === 'dark';
 
     // Update theme text content
-    themeSection.firstElementChild.innerHTML = isDarkMode ? `<i class="fa-regular fa-moon"></i>Dark Mode` : ` <i class="fa-solid fa-moon"></i>Light Mode`;
-    themeSection.lastElementChild.innerHTML = isDarkMode ? ` <i class="fa-solid fa-moon"></i>Light Mode` : ` <i class="fa-regular fa-moon"></i>Dark Mode`;
+    themeSection.firstElementChild.innerHTML = isDarkMode ? ` <span> <i class="fa-regular fa-moon"></i><span class="theme-text">Dark Mode</span></span>` : ` <span> <i class="fa-solid fa-moon"></i><span class="theme-text">Light Mode</span></span>`;
+    themeSection.lastElementChild.innerHTML = isDarkMode ? ` <span> <i class="fa-solid fa-moon"></i><span class="theme-text">Light Mode</span></span>` : ` <span> <i class="fa-regular fa-moon"></i><span class="theme-text">Dark Mode</span></span>`;
 };
 
 // Toggle detailed page view for each country
@@ -93,19 +93,8 @@ const showDetailedPage = (responseData, selectedCountryElement, lastScrollPositi
     // Populate detailed page with content
     detailedPage.innerHTML = createDetailedPageContent(selectedCountryData);
 
-    const backBtn = document.querySelector(".back-btn");
-    // Add click event listener to the back button
-    backBtn.addEventListener("click", () => {
-        // Hide detailed page
-        detailedPage.style.top = "-100vh";
-        detailedPage.innerHTML = ""; // Clear existing content
-
-        // Scroll back to the last position
-        window.scrollTo({
-            top: lastScrollPosition,
-            behavior: 'smooth'
-        });
-    });
+    backToListsPage(detailedPage, lastScrollPosition);
+    showBorderCountryDetails(responseData, detailedPage, lastScrollPosition);
 };
 
 // Create HTML content for the detailed page
@@ -147,6 +136,38 @@ const createDetailedPageContent = (countryData) => {
         </div>`;
 };
 
+const showBorderCountryDetails = (responseData, detailedPage, lastScrollPosition) => {
+    const borderCountries = Array.from(document.querySelectorAll(".border-countries span"));
+
+    borderCountries.forEach(country => {
+        country.addEventListener("click", () => {
+            const borderCountryData = responseData.find(data => (data["alpha3Code"] || data["alpha2Code"]) == country.textContent);
+
+            if (borderCountryData) {
+                detailedPage.innerHTML = createDetailedPageContent(borderCountryData);
+                backToListsPage(detailedPage, lastScrollPosition);
+                showBorderCountryDetails(responseData, detailedPage, lastScrollPosition);
+            }
+        });
+    });
+};
+
+const backToListsPage = (detailedPage, lastScrollPosition) => {
+    const backBtn = document.querySelector(".back-btn");
+    // Add click event listener to the back button
+    backBtn.addEventListener("click", () => {
+        // Hide detailed page
+        detailedPage.style.top = "-100vh";
+        detailedPage.innerHTML = ""; // Clear existing content
+
+        // Scroll back to the last position
+        window.scrollTo({
+            top: lastScrollPosition,
+            behavior: 'smooth'
+        });
+    });
+};
+
 // Function to search countries based on user input
 const searchCountries = () => {
     document.querySelector("#searchBar").oninput = () => {
@@ -164,8 +185,14 @@ const searchCountries = () => {
 
             // Display or hide the country based on the search result
             country.style.display = (isMatch || searchBar === "") ? "block" : "none";
+
+            if (searchBar === "") {
+                const regions = document.querySelectorAll(".regions span")
+                regions.forEach(e => e.style.backgroundColor = "var(--Elements-Color)");
+                regions[0].style.backgroundColor = "var(--Background-Color)";
+            }
         });
-    }
+    };
 };
 
 // Function to filter countries based on selected region
@@ -180,12 +207,11 @@ const filterCountries = () => {
 
             // Highlight the selected region
             region.style.backgroundColor = "var(--Background-Color)";
-            region.classList.add("selected");
 
             const countries = document.querySelectorAll(".country");
             countries.forEach(country => {
                 // Display or hide the country based on the selected region
-                country.style.display = (country.querySelector(".region span").textContent == region.textContent) ? "block" : "none";
+                country.style.display = ((country.querySelector(".region span").textContent == region.textContent) || (region.textContent == "All")) ? "block" : "none";
             });
         }
     });
