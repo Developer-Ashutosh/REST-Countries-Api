@@ -93,6 +93,9 @@ const showDetailedPage = (responseData, selectedCountryElement, lastScrollPositi
     // Populate detailed page with content
     detailedPage.innerHTML = createDetailedPageContent(selectedCountryData);
 
+    document.querySelector('.wrapper').style.maxHeight = detailedPage.clientHeight + "px";
+    document.querySelector('.wrapper').style.overflow = "hidden";
+
     backToListsPage(detailedPage, lastScrollPosition);
     showBorderCountryDetails(responseData, detailedPage, lastScrollPosition);
 };
@@ -159,6 +162,8 @@ const backToListsPage = (detailedPage, lastScrollPosition) => {
         // Hide detailed page
         detailedPage.style.top = "-100vh";
         detailedPage.innerHTML = ""; // Clear existing content
+        document.querySelector('.wrapper').style.maxHeight = 'fit-content';
+        document.querySelector('.wrapper').style.overflow = "visible";
 
         // Scroll back to the last position
         window.scrollTo({
